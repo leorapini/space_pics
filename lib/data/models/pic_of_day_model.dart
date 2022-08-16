@@ -1,12 +1,13 @@
+import 'package:equatable/equatable.dart';
 import 'package:space_pics/domain/entities/pic_of_day.dart';
 
-class PicOfDayModel {
+class PicOfDayModel extends Equatable {
   final String imgUrl;
   final String title;
   final String date;
   final String explanation;
 
-  PicOfDayModel({
+  const PicOfDayModel({
     required this.imgUrl,
     required this.title,
     required this.date,
@@ -27,4 +28,12 @@ class PicOfDayModel {
         date: date,
         explanation: explanation,
       );
+
+  @override
+  List<Object?> get props => [
+        imgUrl,
+        title,
+        date,
+        explanation,
+      ];
 }

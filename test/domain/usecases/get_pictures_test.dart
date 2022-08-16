@@ -14,7 +14,7 @@ void main() {
     usecase = GetPictures(repo: mockPicturesRepository);
   });
 
-  final testPicture = PicOfDay(
+  const testPicture = PicOfDay(
     imgUrl: "https://apod.nasa.gov/apod/image/2208/CygnusWall_Bogaerts_960.jpg",
     title: "The Cygnus Wall of Star Formation",
     explanation:
