@@ -1,8 +1,10 @@
 import 'dart:convert';
 
-import 'package:space_pics/constants/urls.dart';
-import 'package:space_pics/data/models/pic_of_day_model.dart';
 import 'package:http/http.dart' as http;
+
+import '../../constants/urls.dart';
+import '../../helpers/errors.dart';
+import '../models/pic_of_day_model.dart';
 
 abstract class NasaDataSource {
   Future<List<PicOfDayModel>> getNasaPictures(
@@ -23,7 +25,7 @@ class NasaDataSourceImpl implements NasaDataSource {
       final List<PicOfDayModel> listOfPictures = List<PicOfDayModel>.from(result.map((model) => PicOfDayModel.fromJson(model)));
       return listOfPictures;
     } else {
-      throw Error();
+      throw ServerError();
     }
   }
 }

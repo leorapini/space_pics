@@ -1,0 +1,2 @@
+class ServerError implements Exception {}
+
