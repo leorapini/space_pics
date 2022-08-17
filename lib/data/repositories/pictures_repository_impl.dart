@@ -1,8 +1,7 @@
-import 'package:space_pics/data/datasources/nasa_datasource.dart';
-import 'package:space_pics/data/models/pic_of_day_model.dart';
-import 'package:space_pics/domain/entities/pic_of_day.dart';
-import 'package:space_pics/domain/repositories/pictures_repository.dart';
-import 'package:space_pics/helpers/errors.dart';
+import '../../domain/entities/pic_of_day.dart';
+import '../../domain/repositories/pictures_repository.dart';
+import '../../helpers/errors.dart';
+import '../datasources/nasa_datasource.dart';
 
 class PicturesRepositoryImpl implements PicturesRepository {
   final NasaDataSource nasaDataSource;
@@ -18,7 +17,7 @@ class PicturesRepositoryImpl implements PicturesRepository {
       final List<PicOfDay> entityList =
           List<PicOfDay>.from(result.map((model) => model.toEntity()));
       return entityList;
-    } on ServerError {
+    } catch (e) {
       throw ServerError();
     }
   }
