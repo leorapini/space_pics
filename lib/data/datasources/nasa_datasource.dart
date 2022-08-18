@@ -18,7 +18,8 @@ class NasaDataSourceImpl implements NasaDataSource {
 
   @override
   Future<List<PicOfDayModel>> getNasaPictures({required String startDate, required String endDate}) async {
-    final response = await httpClient.get(Uri.parse(NasaUrl.getUrlByDate(startDate: startDate, endDate: endDate)));
+    final nasaRequestUrl = NasaUrl.getUrlByDate(startDate: startDate, endDate: endDate);
+    final response = await httpClient.get(Uri.parse(nasaRequestUrl));
 
     if (response.statusCode == 200) {
       final Iterable result = jsonDecode(response.body);
