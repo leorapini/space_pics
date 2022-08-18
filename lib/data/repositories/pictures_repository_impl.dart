@@ -10,10 +10,17 @@ class PicturesRepositoryImpl implements PicturesRepository {
 
   @override
   Future<List<PicOfDay>> getPictures(
-      {required String startDate, required String endDate}) async {
+      {String? startDate, String? endDate, String? keyword}) async {
     try {
-      final result = await nasaDataSource.getNasaPictures(
-          startDate: startDate, endDate: endDate);
+      List result;
+      if (keyword != null) {
+        result = [];
+      } else if (startDate != null && endDate != null) {
+        result = await nasaDataSource.getNasaPictures(
+            startDate: startDate, endDate: endDate);
+      } else {
+        result = [];
+      }
       final List<PicOfDay> entityList =
           List<PicOfDay>.from(result.map((model) => model.toEntity()));
       return entityList;
