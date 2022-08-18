@@ -7,6 +7,19 @@ abstract class PicOfDayListEvent extends Equatable {
   List<Object?> get props => [];
 }
 
+class OnInitialState extends PicOfDayListEvent {
+  final String startDate;
+  final String endDate;
+
+  OnInitialState({
+    required this.startDate,
+    required this.endDate,
+  });
+
+  @override
+  List<Object?> get props => [startDate, endDate];
+}
+
 class OnDateChanged extends PicOfDayListEvent {
   final String startDate;
   final String endDate;

@@ -6,15 +6,17 @@ import 'package:space_pics/data/repositories/pictures_repository_impl.dart';
 import 'package:space_pics/domain/repositories/pictures_repository.dart';
 import 'package:space_pics/domain/usecases/get_pictures.dart';
 import 'package:space_pics/presentation/bloc/pic_of_day_list_bloc.dart';
-import 'presentation/screens/pic_of_day_screen.dart';
+import 'presentation/screens/home/home_screen.dart';
 import 'locator.dart' as locator;
 
 void main() {
   locator.start();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -26,7 +28,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.grey,
           ),
-          home: PicOfDayScreen(),
+          home: const HomeScreen(),
         ));
   }
 }
