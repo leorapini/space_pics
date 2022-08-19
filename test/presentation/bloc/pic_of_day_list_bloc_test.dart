@@ -37,7 +37,7 @@ void main() {
         return picOfDayListBloc;
       },
       act: (bloc) => bloc
-          .add(OnDateChanged(startDate: testStartDate, endDate: testEndDate)),
+          .add(OnSearchSubmitted(value: testStartDate)),
       wait: const Duration(microseconds: 100),
       expect: () => [
             PicOfDayListLoading(),
@@ -45,6 +45,6 @@ void main() {
           ],
       verify: (bloc) {
         verify(mockGetPictures.execute(
-            startDate: testStartDate, endDate: testEndDate));
+            startDate: testStartDate, endDate: testStartDate));
       });
 }

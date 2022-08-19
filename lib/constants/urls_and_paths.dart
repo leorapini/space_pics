@@ -6,3 +6,16 @@ class NasaUrl {
           {required String startDate, required String endDate}) =>
       '$apiUrl?api_key=$apiKey&start_date=$startDate&end_date=$endDate';
 }
+
+class LocalDataSourcePath {
+  static const String jsonPath = 'assets/data/local_apod.json';
+}
+
+class OfflineDataSourcePath {
+  static const String jsonPath = 'assets/data/offline_apod.json';
+}
+
+class OfflineImages {
+  static const String basePath = 'assets/pictures';
+  static String getOfflineImgPath(String date) => '$basePath/$date.jpg';
+}

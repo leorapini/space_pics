@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-import '../../constants/urls.dart';
+import '../../constants/urls_and_paths.dart';
 import '../../helpers/errors.dart';
 import '../models/pic_of_day_model.dart';
 

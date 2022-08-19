@@ -8,27 +8,38 @@ abstract class PicOfDayListEvent extends Equatable {
 }
 
 class OnInitialState extends PicOfDayListEvent {
-  final String startDate;
-  final String endDate;
 
-  OnInitialState({
-    required this.startDate,
-    required this.endDate,
-  });
+  OnInitialState();
 
   @override
-  List<Object?> get props => [startDate, endDate];
+  List<Object?> get props => [];
 }
 
-class OnDateChanged extends PicOfDayListEvent {
-  final String startDate;
-  final String endDate;
+class OnInitialStateOffline extends PicOfDayListEvent {
+  OnInitialStateOffline();
 
-  OnDateChanged({
-    required this.startDate,
-    required this.endDate,
+  @override
+  List<Object?> get props => [];
+}
+
+class OnSearchSubmitted extends PicOfDayListEvent {
+  final String value;
+
+  OnSearchSubmitted({
+    required this.value,
   });
 
   @override
-  List<Object?> get props => [startDate, endDate];
+  List<Object?> get props => [value];
+}
+
+class OnSearchSubmittedOffline extends PicOfDayListEvent {
+  final String value;
+
+  OnSearchSubmittedOffline({
+    required this.value,
+  });
+
+  @override
+  List<Object?> get props => [value];
 }

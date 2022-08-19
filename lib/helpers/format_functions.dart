@@ -11,3 +11,9 @@ DateTime tenDaysAgo(DateTime date) {
   final DateTime tenDaysAgo = date.subtract(const Duration(days: 10));
   return tenDaysAgo;
 }
+
+bool isDateValid(String value) {
+  // add check date after 1995-06-16 and before DateTime.now()
+  final result = DateTime.tryParse(value) != null;
+  return result;
+}

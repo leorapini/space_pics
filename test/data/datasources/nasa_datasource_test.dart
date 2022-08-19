@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:space_pics/constants/urls.dart';
+import 'package:space_pics/constants/urls_and_paths.dart';
 import 'package:space_pics/data/datasources/nasa_datasource.dart';
 import 'package:http/http.dart' as http;
 import 'package:space_pics/helpers/errors.dart';

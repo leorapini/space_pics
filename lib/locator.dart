@@ -1,5 +1,7 @@
 import 'package:get_it/get_it.dart';
+import 'package:space_pics/data/datasources/local_datadource.dart';
 import 'package:space_pics/data/datasources/nasa_datasource.dart';
+import 'package:space_pics/data/datasources/offline_datasource.dart';
 import 'package:space_pics/data/repositories/pictures_repository_impl.dart';
 import 'package:space_pics/domain/repositories/pictures_repository.dart';
 import 'package:space_pics/domain/usecases/get_pictures.dart';
@@ -19,14 +21,22 @@ void start() {
   locator.registerLazySingleton<PicturesRepository>(
     () => PicturesRepositoryImpl(
       nasaDataSource: locator(),
+      localDataSource: locator(),
+      offlineDataSource: locator(),
     ),
   );
 
-  // Data Source
+  // Data Sources
   locator.registerLazySingleton<NasaDataSource>(
     () => NasaDataSourceImpl(
       httpClient: locator(),
     ),
+  );
+  locator.registerLazySingleton<LocalDataSource>(
+    () => LocalDataSourceImpl(),
+  );
+  locator.registerLazySingleton<OfflineDataSource>(
+    () => OfflineDataSourceImpl(),
   );
 
   // Http
