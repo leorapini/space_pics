@@ -1,9 +1,7 @@
-import 'dart:math';
-
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:space_pics/data/repositories/pictures_repository_impl.dart';
-import 'package:space_pics/helpers/errors.dart';
 
 import '../../helpers/sample_data.dart';
 import '../../helpers/test_helper.mocks.dart';
@@ -18,7 +16,10 @@ void main() {
     mockNasaDataSource = MockNasaDataSource();
     mockLocalDataSource = MockLocalDataSource();
     mockOfflineDataSource = MockOfflineDataSource();
-    repo = PicturesRepositoryImpl(nasaDataSource: mockNasaDataSource, localDataSource: mockLocalDataSource, offlineDataSource: mockOfflineDataSource);
+    repo = PicturesRepositoryImpl(
+        nasaDataSource: mockNasaDataSource,
+        localDataSource: mockLocalDataSource,
+        offlineDataSource: mockOfflineDataSource);
   });
 
   const testPicOfDayModel = samplePicOfDayModel;
@@ -33,11 +34,23 @@ void main() {
             startDate: testStartDate, endDate: testEndDate))
         .thenAnswer((_) async => [testPicOfDayModel]);
 
-    final result =
-        await repo.getPictures(startDate: testStartDate, endDate: testEndDate);
+    final result = await repo.getPictures(
+        startDate: testStartDate, endDate: testEndDate, offline: false);
 
     verify(mockNasaDataSource.getNasaPictures(
         startDate: testStartDate, endDate: testEndDate));
+    expect(result, [testPicOfDay]);
+  });
+
+  test(
+      'should return correct PicOfDay entity when call to OfflineDataSource is successful',
+      () async {
+    when(mockOfflineDataSource.getOfflineData())
+        .thenAnswer((_) async => [testPicOfDayModel]);
+
+    final result = await repo.getPictures(offline: true);
+
+    verify(mockOfflineDataSource.getOfflineData());
     expect(result, [testPicOfDay]);
   });
 }

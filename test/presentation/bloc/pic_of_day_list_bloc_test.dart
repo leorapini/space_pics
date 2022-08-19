@@ -32,7 +32,7 @@ void main() {
       'should emit loading and has data when successful',
       build: () {
         when(mockGetPictures.execute(
-                startDate: testStartDate, endDate: testEndDate))
+                startDate: testStartDate, endDate: testEndDate, offline: false))
             .thenAnswer((_) async => [testPicOfDay]);
         return picOfDayListBloc;
       },
@@ -45,6 +45,6 @@ void main() {
           ],
       verify: (bloc) {
         verify(mockGetPictures.execute(
-            startDate: testStartDate, endDate: testStartDate));
+            startDate: testStartDate, endDate: testStartDate, offline: false));
       });
 }

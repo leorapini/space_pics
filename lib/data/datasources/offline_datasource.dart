@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 import '../../constants/urls_and_paths.dart';
@@ -14,10 +15,10 @@ class OfflineDataSourceImpl implements OfflineDataSource {
   @override
   Future<List<PicOfDayModel>> getOfflineData({String? keyword}) async {
     List<PicOfDayModel> result = [];
-
+    debugPrint('before response in Impl');
     final String response =
         await rootBundle.loadString(OfflineDataSourcePath.jsonPath);
-
+    debugPrint('after response in Impl');
     final Iterable jsonDecoded = jsonDecode(response);
     final List<PicOfDayModel> listOfPictures = List<PicOfDayModel>.from(
         jsonDecoded.map((model) => PicOfDayModel.fromJson(model)));

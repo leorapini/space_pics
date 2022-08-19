@@ -28,10 +28,11 @@ void main() {
 
   test('Should return a list containing one picture from repository', () async {
     when(mockPicturesRepository.getPictures(
-        startDate: testDate, endDate: testDate)).thenAnswer((_) async => testListOfPictures);
+            startDate: testDate, endDate: testDate, offline: false))
+        .thenAnswer((_) async => testListOfPictures);
 
-    final result =
-        await usecase.execute(startDate: testDate, endDate: testDate);
+    final result = await usecase.execute(
+        startDate: testDate, endDate: testDate, offline: false);
 
     expect(result, equals(testListOfPictures));
   });

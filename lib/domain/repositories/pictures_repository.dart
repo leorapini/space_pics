@@ -5,6 +5,6 @@ abstract class PicturesRepository {
     String? startDate,
     String? endDate,
     String? keyword,
-    bool? offline,
+    required bool offline,
   });
 }

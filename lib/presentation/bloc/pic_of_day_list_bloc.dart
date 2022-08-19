@@ -21,7 +21,7 @@ class PicOfDayListBloc extends Bloc<PicOfDayListEvent, PicOfDayListState> {
 
       try {
         final result =
-            await _getPictures.execute(startDate: startDate, endDate: endDate);
+            await _getPictures.execute(startDate: startDate, endDate: endDate, offline: false);
         final reversedResult = result.reversed.toList();
         emit(PicOfDayListHasData(picOfDayList: reversedResult));
       } catch (e) {
@@ -51,7 +51,7 @@ class PicOfDayListBloc extends Bloc<PicOfDayListEvent, PicOfDayListState> {
         emit(PicOfDayListLoading());
 
         try {
-          result = await _getPictures.execute(startDate: value, endDate: value);
+          result = await _getPictures.execute(startDate: value, endDate: value, offline: false);
           emit(PicOfDayListHasData(picOfDayList: result));
         } catch (e) {
           emit(PicOfDayListError(errorMessage: 'Whoops! Something went wrong'));
@@ -61,7 +61,7 @@ class PicOfDayListBloc extends Bloc<PicOfDayListEvent, PicOfDayListState> {
         emit(PicOfDayListLoading());
 
         try {
-          result = await _getPictures.execute(keyword: value);
+          result = await _getPictures.execute(keyword: value, offline: false);
           final reversedResult = result.reversed.toList();
           emit(PicOfDayListHasData(picOfDayList: reversedResult));
         } catch (e) {

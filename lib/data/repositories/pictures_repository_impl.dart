@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import '../../domain/entities/pic_of_day.dart';
 import '../../domain/repositories/pictures_repository.dart';
 import '../../helpers/errors.dart';
@@ -20,32 +22,39 @@ class PicturesRepositoryImpl implements PicturesRepository {
       {String? startDate,
       String? endDate,
       String? keyword,
-      bool? offline}) async {
-    try {
-      List result;
-      if (offline != null || offline == false) {
+      required bool offline}) async {
+    List result = [];
+
+    // Get offline pictures (stored locally)
+    if (offline == true) {
+      try {
         if (keyword != null) {
           result = await offlineDataSource.getOfflineData(keyword: keyword);
         } else {
           result = await offlineDataSource.getOfflineData();
         }
-        final List<PicOfDay> entityList =
-            List<PicOfDay>.from(result.map((model) => model.toEntity()));
-        return entityList;
+      } catch (e) {
+        debugPrint('error: $e');
+        throw ServerError();
       }
-      if (keyword != null) {
-        result = await localDataSource.getLocalData(keyword: keyword);
-      } else if (startDate != null && endDate != null) {
-        result = await nasaDataSource.getNasaPictures(
-            startDate: startDate, endDate: endDate);
-      } else {
-        result = [];
+      // Get pictures from NASA if searched by date or from local json if searched by keyword
+    } else {
+      try {
+        if (keyword != null) {
+          result = await localDataSource.getLocalData(keyword: keyword);
+        } else if (startDate != null && endDate != null) {
+          result = await nasaDataSource.getNasaPictures(
+              startDate: startDate, endDate: endDate);
+        }
+      } catch (e) {
+        debugPrint('error: $e');
+        throw ServerError();
       }
-      final List<PicOfDay> entityList =
-          List<PicOfDay>.from(result.map((model) => model.toEntity()));
-      return entityList;
-    } catch (e) {
-      throw ServerError();
     }
+
+    final List<PicOfDay> entityList =
+        List<PicOfDay>.from(result.map((model) => model.toEntity()));
+
+    return entityList;
   }
 }
