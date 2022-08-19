@@ -72,6 +72,7 @@ class HomeScreen extends StatelessWidget {
                 builder: (context, state) {
               return TextField(
                 textAlign: TextAlign.center,
+                textInputAction: TextInputAction.send,
                 decoration: const InputDecoration(
                   hintText: 'Enter date (YYYY-MM-DD) or keyword',
                   hintStyle: TextStyle(fontSize: 14.5),
@@ -89,6 +90,24 @@ class HomeScreen extends StatelessWidget {
                 },
               );
             }),
+            const AddVerticalSpace(10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.black12),
+                  ),
+                  onPressed: () {
+                    isConnected(context);
+                  },
+                  child: const Text(
+                    'See List',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ],
+            ),
             const AddVerticalSpace(30),
             BlocBuilder<PicOfDayListBloc, PicOfDayListState>(
                 builder: (context, state) {
