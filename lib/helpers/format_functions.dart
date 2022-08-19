@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:space_pics/constants/values.dart';
 
 // Returns a String with the following for farmat YYYY-MM-DD as per Nasa's Api
 String fromDateTimeToString(DateTime date) {
@@ -7,9 +8,9 @@ String fromDateTimeToString(DateTime date) {
   return formattedDate;
 }
 
-DateTime tenDaysAgo(DateTime date) {
-  final DateTime tenDaysAgo = date.subtract(const Duration(days: 10));
-  return tenDaysAgo;
+DateTime daysAgo(DateTime date) {
+  final DateTime daysAgo = date.subtract(const Duration(days: numberOfDays));
+  return daysAgo;
 }
 
 bool isDateValid(String value) {

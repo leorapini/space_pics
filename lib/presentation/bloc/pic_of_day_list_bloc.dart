@@ -107,10 +107,11 @@ class StartAndEndDate {
 
   factory StartAndEndDate.fromNow() {
     final DateTime now = DateTime.now();
-    final DateTime tenDaysAgoDate = tenDaysAgo(now);
+    final DateTime daysAgoDate =
+        daysAgo(now); // Number days is define in constants/values
     final String endDate = fromDateTimeToString(now);
     final String startDate = fromDateTimeToString(
-        tenDaysAgoDate); // 10 days prior to today's date (aka endDate)
+        daysAgoDate); // Number of prior to today's date (aka endDate)
 
     return StartAndEndDate(startDate: startDate, endDate: endDate);
   }
