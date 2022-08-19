@@ -7,17 +7,17 @@ import '../../helpers/test_helper.mocks.dart';
 
 void main() {
   late MockNasaDataSource mockNasaDataSource;
-  late MockLocalDataSource mockLocalDataSource;
+  late MockLocalJsonDataSource mockLocalJsonDataSource;
   late MockOfflineDataSource mockOfflineDataSource;
   late PicturesRepositoryImpl repo;
 
   setUp(() {
     mockNasaDataSource = MockNasaDataSource();
-    mockLocalDataSource = MockLocalDataSource();
+    mockLocalJsonDataSource = MockLocalJsonDataSource();
     mockOfflineDataSource = MockOfflineDataSource();
     repo = PicturesRepositoryImpl(
         nasaDataSource: mockNasaDataSource,
-        localDataSource: mockLocalDataSource,
+        localJsonDataSource: mockLocalJsonDataSource,
         offlineDataSource: mockOfflineDataSource);
   });
 
@@ -57,12 +57,12 @@ void main() {
   test(
       'should return correct PicOfDay entity when call to LocalDataSource is successful',
       () async {
-    when(mockLocalDataSource.getLocalData(keyword: testKeyword))
+    when(mockLocalJsonDataSource.getLocalData(keyword: testKeyword))
         .thenAnswer((_) async => [testPicOfDayModel]);
 
     final result = await repo.getPictures(keyword: testKeyword, offline: false);
 
-    verify(mockLocalDataSource.getLocalData(keyword: testKeyword));
+    verify(mockLocalJsonDataSource.getLocalData(keyword: testKeyword));
     expect(result, [testPicOfDay]);
   });
 }

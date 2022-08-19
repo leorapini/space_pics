@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:space_pics/domain/entities/pic_of_day.dart';
-import 'package:space_pics/presentation/screens/details/details_screen.dart';
 
-import '../../../../constants/urls_and_paths.dart';
+import '../../../../data/constants/urls_and_paths.dart';
+import '../../../../domain/entities/pic_of_day.dart';
 import '../../../helpers/ui_helpers.dart';
+import '../../details/details_screen.dart';
 
 class PicOfDayListItem extends StatelessWidget {
   const PicOfDayListItem({
@@ -20,8 +20,9 @@ class PicOfDayListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context)
-            .pushNamed(DetailsScreen.routeName, arguments: DetailsScreenParams(picOfDay: picOfDay, offline: offline));
+        Navigator.of(context).pushNamed(DetailsScreen.routeName,
+            arguments:
+                DetailsScreenParams(picOfDay: picOfDay, offline: offline));
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,

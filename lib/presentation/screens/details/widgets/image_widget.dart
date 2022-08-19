@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../constants/urls_and_paths.dart';
+import '../../../../data/constants/urls_and_paths.dart';
 
 class ImgLarge extends StatelessWidget {
   const ImgLarge({
@@ -22,8 +22,7 @@ class ImgLarge extends StatelessWidget {
             imageUrl: imgUrl,
             progressIndicatorBuilder: (context, url, downloadProgress) =>
                 Container(
-              margin:
-                  const EdgeInsets.symmetric(vertical: 30, horizontal: 55),
+              margin: const EdgeInsets.symmetric(vertical: 30, horizontal: 55),
               child:
                   CircularProgressIndicator(value: downloadProgress.progress),
             ),

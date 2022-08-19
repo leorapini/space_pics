@@ -3,14 +3,14 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
-import '../../constants/urls_and_paths.dart';
+import '../constants/urls_and_paths.dart';
 import '../models/pic_of_day_model.dart';
 
 abstract class OfflineDataSource {
   Future<List<PicOfDayModel>> getOfflineData({String? keyword});
 }
-
-// It is returning correct result
+// Local data source (json + pictures) shipped with the app in order to offer 
+// a good offline experience for the user.
 class OfflineDataSourceImpl implements OfflineDataSource {
   @override
   Future<List<PicOfDayModel>> getOfflineData({String? keyword}) async {

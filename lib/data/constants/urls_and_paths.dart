@@ -7,7 +7,7 @@ class NasaUrl {
       '$apiUrl?api_key=$apiKey&start_date=$startDate&end_date=$endDate';
 }
 
-class LocalDataSourcePath {
+class LocalJsonDataSourcePath {
   static const String jsonPath = 'assets/data/local_apod.json';
 }
 

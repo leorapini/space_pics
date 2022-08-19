@@ -1,5 +1,6 @@
 import 'package:intl/intl.dart';
-import 'package:space_pics/constants/values.dart';
+
+import '../data/constants/values.dart';
 
 // Returns a String with the following for farmat YYYY-MM-DD as per Nasa's Api
 String fromDateTimeToString(DateTime date) {

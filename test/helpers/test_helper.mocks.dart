@@ -9,7 +9,7 @@ import 'dart:typed_data' as _i11;
 
 import 'package:http/http.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:space_pics/data/datasources/local_datadource.dart' as _i8;
+import 'package:space_pics/data/datasources/local_json_datasource.dart' as _i8;
 import 'package:space_pics/data/datasources/nasa_datasource.dart' as _i6;
 import 'package:space_pics/data/datasources/offline_datasource.dart' as _i9;
 import 'package:space_pics/data/models/pic_of_day_model.dart' as _i7;
@@ -83,11 +83,12 @@ class MockNasaDataSource extends _i1.Mock implements _i6.NasaDataSource {
               <_i7.PicOfDayModel>[])) as _i4.Future<List<_i7.PicOfDayModel>>);
 }
 
-/// A class which mocks [LocalDataSource].
+/// A class which mocks [LocalJsonDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockLocalDataSource extends _i1.Mock implements _i8.LocalDataSource {
-  MockLocalDataSource() {
+class MockLocalJsonDataSource extends _i1.Mock
+    implements _i8.LocalJsonDataSource {
+  MockLocalJsonDataSource() {
     _i1.throwOnMissingStub(this);
   }
 

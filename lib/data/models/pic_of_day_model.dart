@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:space_pics/domain/entities/pic_of_day.dart';
+
+import '../../domain/entities/pic_of_day.dart';
 
 class PicOfDayModel extends Equatable {
   final String imgUrl;
