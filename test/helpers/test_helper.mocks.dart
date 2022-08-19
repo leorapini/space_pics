@@ -4,12 +4,14 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
-import 'dart:convert' as _i8;
-import 'dart:typed_data' as _i9;
+import 'dart:convert' as _i10;
+import 'dart:typed_data' as _i11;
 
 import 'package:http/http.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:space_pics/data/datasources/local_datadource.dart' as _i8;
 import 'package:space_pics/data/datasources/nasa_datasource.dart' as _i6;
+import 'package:space_pics/data/datasources/offline_datasource.dart' as _i9;
 import 'package:space_pics/data/models/pic_of_day_model.dart' as _i7;
 import 'package:space_pics/domain/entities/pic_of_day.dart' as _i5;
 import 'package:space_pics/domain/repositories/pictures_repository.dart' as _i3;
@@ -47,10 +49,17 @@ class MockPicturesRepository extends _i1.Mock
 
   @override
   _i4.Future<List<_i5.PicOfDay>> getPictures(
-          {String? startDate, String? endDate}) =>
+          {String? startDate,
+          String? endDate,
+          String? keyword,
+          bool? offline}) =>
       (super.noSuchMethod(
-              Invocation.method(
-                  #getPictures, [], {#startDate: startDate, #endDate: endDate}),
+              Invocation.method(#getPictures, [], {
+                #startDate: startDate,
+                #endDate: endDate,
+                #keyword: keyword,
+                #offline: offline
+              }),
               returnValue:
                   _i4.Future<List<_i5.PicOfDay>>.value(<_i5.PicOfDay>[]))
           as _i4.Future<List<_i5.PicOfDay>>);
@@ -70,6 +79,37 @@ class MockNasaDataSource extends _i1.Mock implements _i6.NasaDataSource {
       (super.noSuchMethod(
           Invocation.method(
               #getNasaPictures, [], {#startDate: startDate, #endDate: endDate}),
+          returnValue: _i4.Future<List<_i7.PicOfDayModel>>.value(
+              <_i7.PicOfDayModel>[])) as _i4.Future<List<_i7.PicOfDayModel>>);
+}
+
+/// A class which mocks [LocalDataSource].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockLocalDataSource extends _i1.Mock implements _i8.LocalDataSource {
+  MockLocalDataSource() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i4.Future<List<_i7.PicOfDayModel>> getLocalData({String? keyword}) => (super
+      .noSuchMethod(Invocation.method(#getLocalData, [], {#keyword: keyword}),
+          returnValue: _i4.Future<List<_i7.PicOfDayModel>>.value(
+              <_i7.PicOfDayModel>[])) as _i4.Future<List<_i7.PicOfDayModel>>);
+}
+
+/// A class which mocks [OfflineDataSource].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockOfflineDataSource extends _i1.Mock implements _i9.OfflineDataSource {
+  MockOfflineDataSource() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i4.Future<List<_i7.PicOfDayModel>> getOfflineData({String? keyword}) =>
+      (super.noSuchMethod(
+          Invocation.method(#getOfflineData, [], {#keyword: keyword}),
           returnValue: _i4.Future<List<_i7.PicOfDayModel>>.value(
               <_i7.PicOfDayModel>[])) as _i4.Future<List<_i7.PicOfDayModel>>);
 }
@@ -98,7 +138,7 @@ class MockHttpClient extends _i1.Mock implements _i2.Client {
   _i4.Future<_i2.Response> post(Uri? url,
           {Map<String, String>? headers,
           Object? body,
-          _i8.Encoding? encoding}) =>
+          _i10.Encoding? encoding}) =>
       (super
           .noSuchMethod(Invocation.method(#post, [url], {#headers: headers, #body: body, #encoding: encoding}),
               returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
@@ -114,7 +154,7 @@ class MockHttpClient extends _i1.Mock implements _i2.Client {
   _i4.Future<_i2.Response> put(Uri? url,
           {Map<String, String>? headers,
           Object? body,
-          _i8.Encoding? encoding}) =>
+          _i10.Encoding? encoding}) =>
       (super
           .noSuchMethod(Invocation.method(#put, [url], {#headers: headers, #body: body, #encoding: encoding}),
               returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
@@ -130,7 +170,7 @@ class MockHttpClient extends _i1.Mock implements _i2.Client {
   _i4.Future<_i2.Response> patch(Uri? url,
           {Map<String, String>? headers,
           Object? body,
-          _i8.Encoding? encoding}) =>
+          _i10.Encoding? encoding}) =>
       (super
           .noSuchMethod(Invocation.method(#patch, [url], {#headers: headers, #body: body, #encoding: encoding}),
               returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
@@ -146,7 +186,7 @@ class MockHttpClient extends _i1.Mock implements _i2.Client {
   _i4.Future<_i2.Response> delete(Uri? url,
           {Map<String, String>? headers,
           Object? body,
-          _i8.Encoding? encoding}) =>
+          _i10.Encoding? encoding}) =>
       (super
           .noSuchMethod(Invocation.method(#delete, [url], {#headers: headers, #body: body, #encoding: encoding}),
               returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
@@ -163,12 +203,12 @@ class MockHttpClient extends _i1.Mock implements _i2.Client {
       (super.noSuchMethod(Invocation.method(#read, [url], {#headers: headers}),
           returnValue: _i4.Future<String>.value('')) as _i4.Future<String>);
   @override
-  _i4.Future<_i9.Uint8List> readBytes(Uri? url,
+  _i4.Future<_i11.Uint8List> readBytes(Uri? url,
           {Map<String, String>? headers}) =>
       (super.noSuchMethod(
               Invocation.method(#readBytes, [url], {#headers: headers}),
-              returnValue: _i4.Future<_i9.Uint8List>.value(_i9.Uint8List(0)))
-          as _i4.Future<_i9.Uint8List>);
+              returnValue: _i4.Future<_i11.Uint8List>.value(_i11.Uint8List(0)))
+          as _i4.Future<_i11.Uint8List>);
   @override
   _i4.Future<_i2.StreamedResponse> send(_i2.BaseRequest? request) =>
       (super.noSuchMethod(Invocation.method(#send, [request]),

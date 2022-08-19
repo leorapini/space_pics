@@ -10,11 +10,15 @@ import '../../helpers/test_helper.mocks.dart';
 
 void main() {
   late MockNasaDataSource mockNasaDataSource;
+  late MockLocalDataSource mockLocalDataSource;
+  late MockOfflineDataSource mockOfflineDataSource;
   late PicturesRepositoryImpl repo;
 
   setUp(() {
     mockNasaDataSource = MockNasaDataSource();
-    repo = PicturesRepositoryImpl(nasaDataSource: mockNasaDataSource);
+    mockLocalDataSource = MockLocalDataSource();
+    mockOfflineDataSource = MockOfflineDataSource();
+    repo = PicturesRepositoryImpl(nasaDataSource: mockNasaDataSource, localDataSource: mockLocalDataSource, offlineDataSource: mockOfflineDataSource);
   });
 
   const testPicOfDayModel = samplePicOfDayModel;

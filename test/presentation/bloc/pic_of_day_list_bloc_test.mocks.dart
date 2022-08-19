@@ -43,10 +43,17 @@ class MockGetPictures extends _i1.Mock implements _i3.GetPictures {
           as _i2.PicturesRepository);
   @override
   _i4.Future<List<_i5.PicOfDay>> execute(
-          {String? startDate, String? endDate}) =>
+          {String? startDate,
+          String? endDate,
+          String? keyword,
+          bool? offline}) =>
       (super.noSuchMethod(
-              Invocation.method(
-                  #execute, [], {#startDate: startDate, #endDate: endDate}),
+              Invocation.method(#execute, [], {
+                #startDate: startDate,
+                #endDate: endDate,
+                #keyword: keyword,
+                #offline: offline
+              }),
               returnValue:
                   _i4.Future<List<_i5.PicOfDay>>.value(<_i5.PicOfDay>[]))
           as _i4.Future<List<_i5.PicOfDay>>);
