@@ -7,7 +7,14 @@ class GetPictures {
   GetPictures({required this.repo});
 
   Future<List<PicOfDay>> execute(
-      {String? startDate, String? endDate, String? keyword, required bool offline}) {
-    return repo.getPictures(startDate: startDate, endDate: endDate, keyword: keyword, offline: offline);
+      {String? startDate,
+      String? endDate,
+      String? keyword,
+      required bool offline}) {
+    return repo.getPictures(
+        startDate: startDate,
+        endDate: endDate,
+        keyword: keyword,
+        offline: offline);
   }
 }
