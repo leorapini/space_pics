@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:space_pics/data/repositories/pictures_repository_impl.dart';
@@ -26,6 +25,7 @@ void main() {
   const testPicOfDay = samplePicOfDay;
   const testStartDate = sampleStartDate;
   const testEndDate = sampleEndDate;
+  const testKeyword = 'metheor';
 
   test(
       'should return correct PicOfDay entity when call to NasaDataSource is successful',
@@ -51,6 +51,18 @@ void main() {
     final result = await repo.getPictures(offline: true);
 
     verify(mockOfflineDataSource.getOfflineData());
+    expect(result, [testPicOfDay]);
+  });
+
+  test(
+      'should return correct PicOfDay entity when call to LocalDataSource is successful',
+      () async {
+    when(mockLocalDataSource.getLocalData(keyword: testKeyword))
+        .thenAnswer((_) async => [testPicOfDayModel]);
+
+    final result = await repo.getPictures(keyword: testKeyword, offline: false);
+
+    verify(mockLocalDataSource.getLocalData(keyword: testKeyword));
     expect(result, [testPicOfDay]);
   });
 }

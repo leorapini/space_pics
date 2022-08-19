@@ -17,8 +17,7 @@ class PicOfDayListInitialOffline extends PicOfDayListState {}
 
 class PicOfDayListError extends PicOfDayListState {
   final String errorMessage;
-
-  PicOfDayListError({required this.errorMessage});
+  const PicOfDayListError({this.errorMessage = 'Whoops! Something went wrong'});
 
   @override
   List<Object?> get props => [errorMessage];
@@ -26,8 +25,7 @@ class PicOfDayListError extends PicOfDayListState {
 
 class PicOfDayListHasData extends PicOfDayListState {
   final List<PicOfDay> picOfDayList;
-
-  PicOfDayListHasData({required this.picOfDayList});
+  const PicOfDayListHasData({required this.picOfDayList});
 
   @override
   List<Object?> get props => picOfDayList;
@@ -35,8 +33,7 @@ class PicOfDayListHasData extends PicOfDayListState {
 
 class PicOfDayListHasDataOffline extends PicOfDayListState {
   final List<PicOfDay> picOfDayList;
-
-  PicOfDayListHasDataOffline({required this.picOfDayList});
+  const PicOfDayListHasDataOffline({required this.picOfDayList});
 
   @override
   List<Object?> get props => picOfDayList;

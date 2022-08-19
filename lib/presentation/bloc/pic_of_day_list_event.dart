@@ -8,15 +8,14 @@ abstract class PicOfDayListEvent extends Equatable {
 }
 
 class OnInitialState extends PicOfDayListEvent {
-
-  OnInitialState();
+  const OnInitialState();
 
   @override
   List<Object?> get props => [];
 }
 
 class OnInitialStateOffline extends PicOfDayListEvent {
-  OnInitialStateOffline();
+  const OnInitialStateOffline();
 
   @override
   List<Object?> get props => [];
@@ -24,8 +23,7 @@ class OnInitialStateOffline extends PicOfDayListEvent {
 
 class OnSearchSubmitted extends PicOfDayListEvent {
   final String value;
-
-  OnSearchSubmitted({
+  const OnSearchSubmitted({
     required this.value,
   });
 
@@ -35,8 +33,7 @@ class OnSearchSubmitted extends PicOfDayListEvent {
 
 class OnSearchSubmittedOffline extends PicOfDayListEvent {
   final String value;
-
-  OnSearchSubmittedOffline({
+  const OnSearchSubmittedOffline({
     required this.value,
   });
 

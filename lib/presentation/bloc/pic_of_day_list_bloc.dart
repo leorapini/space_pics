@@ -11,96 +11,107 @@ class PicOfDayListBloc extends Bloc<PicOfDayListEvent, PicOfDayListState> {
 
   PicOfDayListBloc(this._getPictures) : super(PicOfDayListInitial()) {
     on<OnInitialState>((event, emit) async {
-      final DateTime now = DateTime.now();
-      final DateTime tenDaysAgoDate = tenDaysAgo(now);
-      final String endDate = fromDateTimeToString(now);
-      final String startDate = fromDateTimeToString(
-          tenDaysAgoDate); // 10 days prior to today's date (aka endDate)
-
+      final StartAndEndDate dates = StartAndEndDate.fromNow();
       emit(PicOfDayListLoading());
-
       try {
-        final result =
-            await _getPictures.execute(startDate: startDate, endDate: endDate, offline: false);
+        final result = await _getPictures.execute(
+            startDate: dates.startDate, endDate: dates.endDate, offline: false);
         final reversedResult = result.reversed.toList();
         emit(PicOfDayListHasData(picOfDayList: reversedResult));
       } catch (e) {
-        emit(PicOfDayListError(errorMessage: 'Whoops! Something went wrong'));
-        throw ServerError();
-      }
-    });
-
-    on<OnInitialStateOffline>((event, emit) async {
-      emit(PicOfDayListLoading());
-
-      try {
-        final result = await _getPictures.execute(offline: true);
-        final reversedResult = result.reversed.toList();
-        emit(PicOfDayListHasDataOffline(picOfDayList: reversedResult));
-      } catch (e) {
-        emit(PicOfDayListError(errorMessage: 'Whoops! Something went wrong'));
+        emit(const PicOfDayListError());
         throw ServerError();
       }
     });
 
     on<OnSearchSubmitted>((event, emit) async {
-      final value = event.value;
-      var result;
+      final String value = event.value;
+      final bool searchByDate = isDateValid(value);
 
-      if (isDateValid(value)) {
-        emit(PicOfDayListLoading());
+      emit(PicOfDayListLoading());
 
+      // Search by date from NASA datasource
+      if (searchByDate) {
         try {
-          result = await _getPictures.execute(startDate: value, endDate: value, offline: false);
+          final result = await _getPictures.execute(
+              startDate: value, endDate: value, offline: false);
           emit(PicOfDayListHasData(picOfDayList: result));
         } catch (e) {
-          emit(PicOfDayListError(errorMessage: 'Whoops! Something went wrong'));
+          emit(const PicOfDayListError());
           throw ServerError();
         }
+        // Search by keyword from local json
       } else {
-        emit(PicOfDayListLoading());
-
         try {
-          result = await _getPictures.execute(keyword: value, offline: false);
+          final result =
+              await _getPictures.execute(keyword: value, offline: false);
           final reversedResult = result.reversed.toList();
           emit(PicOfDayListHasData(picOfDayList: reversedResult));
         } catch (e) {
-          emit(PicOfDayListError(errorMessage: 'Whoops! Something went wrong'));
-          throw ServerError();
+          emit(const PicOfDayListError());
+          throw LocalError();
         }
+      }
+    });
+
+    on<OnInitialStateOffline>((event, emit) async {
+      emit(PicOfDayListLoading());
+      try {
+        final result = await _getPictures.execute(offline: true);
+        final reversedResult = result.reversed.toList();
+        emit(PicOfDayListHasDataOffline(picOfDayList: reversedResult));
+      } catch (e) {
+        emit(const PicOfDayListError());
+        throw LocalError();
       }
     });
 
     on<OnSearchSubmittedOffline>((event, emit) async {
       final value = event.value;
-      var result;
+      final bool searchByDate = isDateValid(value);
 
-      // searching by date
-      if (isDateValid(value)) {
-        emit(PicOfDayListLoading());
+      emit(PicOfDayListLoading());
 
+      // Searching by date (offline mode)
+      if (searchByDate) {
         try {
-          result = await _getPictures.execute(
+          final result = await _getPictures.execute(
               startDate: value, endDate: value, offline: true);
           emit(PicOfDayListHasData(picOfDayList: result));
         } catch (e) {
-          emit(PicOfDayListError(errorMessage: 'Whoops! Something went wrong'));
-          throw ServerError();
+          emit(const PicOfDayListError());
+          throw LocalError();
         }
-      
-      // searching by keyword
+        // Searching by keyword (offline mode)
       } else {
-        emit(PicOfDayListLoading());
-
         try {
-          result = await _getPictures.execute(keyword: value, offline: true);
+          final result =
+              await _getPictures.execute(keyword: value, offline: true);
           final reversedResult = result.reversed.toList();
           emit(PicOfDayListHasDataOffline(picOfDayList: reversedResult));
         } catch (e) {
-          emit(PicOfDayListError(errorMessage: 'Whoops! Something went wrong'));
-          throw ServerError();
+          emit(const PicOfDayListError());
+          throw LocalError();
         }
       }
     });
+  }
+}
+
+// Start date must always be earlier/smaller then end date
+class StartAndEndDate {
+  final String endDate;
+  final String startDate;
+
+  StartAndEndDate({required this.startDate, required this.endDate});
+
+  factory StartAndEndDate.fromNow() {
+    final DateTime now = DateTime.now();
+    final DateTime tenDaysAgoDate = tenDaysAgo(now);
+    final String endDate = fromDateTimeToString(now);
+    final String startDate = fromDateTimeToString(
+        tenDaysAgoDate); // 10 days prior to today's date (aka endDate)
+
+    return StartAndEndDate(startDate: startDate, endDate: endDate);
   }
 }
