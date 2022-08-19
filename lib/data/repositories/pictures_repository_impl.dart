@@ -35,7 +35,7 @@ class PicturesRepositoryImpl implements PicturesRepository {
         }
       } catch (e) {
         debugPrint('error: $e');
-        throw ServerError();
+        throw LocalError();
       }
       // Get pictures from NASA if searched by date or from local json if searched by keyword
     } else {
