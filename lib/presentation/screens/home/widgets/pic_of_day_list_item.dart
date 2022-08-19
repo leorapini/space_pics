@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:space_pics/domain/entities/pic_of_day.dart';
+import 'package:space_pics/presentation/screens/details/details_screen.dart';
 
 import '../../../../constants/urls_and_paths.dart';
 import '../../../helpers/ui_helpers.dart';
@@ -7,31 +9,34 @@ import '../../../helpers/ui_helpers.dart';
 class PicOfDayListItem extends StatelessWidget {
   const PicOfDayListItem({
     Key? key,
-    required this.imgUrl,
-    required this.title,
-    required this.date,
+    required this.picOfDay,
     required this.offline,
   }) : super(key: key);
 
-  final String imgUrl;
-  final String title;
-  final String date;
+  final PicOfDay picOfDay;
   final bool offline;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        SizedBox(
-          width: 150,
-          height: 100,
-          child: ImgThumbnail(imgUrl: imgUrl, date: date, offline: offline),
-        ),
-        const AddHorizontalSpace(10),
-        ThumbnailDescription(title: title, date: date)
-      ],
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context)
+            .pushNamed(DetailsScreen.routeName, arguments: DetailsScreenParams(picOfDay: picOfDay, offline: offline));
+      },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(
+            width: 150,
+            height: 100,
+            child: ImgThumbnail(
+                imgUrl: picOfDay.imgUrl, date: picOfDay.date, offline: offline),
+          ),
+          const AddHorizontalSpace(10),
+          ThumbnailDescription(title: picOfDay.title, date: picOfDay.date)
+        ],
+      ),
     );
   }
 }

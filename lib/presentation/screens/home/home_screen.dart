@@ -11,6 +11,7 @@ import '../../helpers/ui_helpers.dart';
 import 'widgets/pic_of_day_list_item.dart';
 
 class HomeScreen extends StatelessWidget {
+  static const routeName = '/';
   const HomeScreen({Key? key}) : super(key: key);
 
   final double paddingValue = 20;
@@ -106,9 +107,7 @@ class HomeScreen extends StatelessWidget {
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 8.0),
                         child: PicOfDayListItem(
-                          imgUrl: state.picOfDayList[i].imgUrl,
-                          title: state.picOfDayList[i].title,
-                          date: state.picOfDayList[i].date,
+                          picOfDay: state.picOfDayList[i],
                           offline: false,
                         ),
                       );
@@ -126,9 +125,7 @@ class HomeScreen extends StatelessWidget {
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 8.0),
                         child: PicOfDayListItem(
-                          imgUrl: state.picOfDayList[i].imgUrl,
-                          title: state.picOfDayList[i].title,
-                          date: state.picOfDayList[i].date,
+                          picOfDay: state.picOfDayList[i],
                           offline: true,
                         ),
                       );

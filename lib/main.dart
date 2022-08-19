@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
-import 'package:space_pics/data/datasources/nasa_datasource.dart';
-import 'package:space_pics/data/repositories/pictures_repository_impl.dart';
-import 'package:space_pics/domain/repositories/pictures_repository.dart';
-import 'package:space_pics/domain/usecases/get_pictures.dart';
-import 'package:space_pics/presentation/bloc/pic_of_day_list_bloc.dart';
-import 'presentation/screens/home/home_screen.dart';
+
 import 'locator.dart' as locator;
+import 'presentation/bloc/pic_of_day_list_bloc.dart';
+import 'presentation/screens/home/home_screen.dart';
+import 'route_generator.dart';
 
 void main() {
   locator.start();
@@ -28,6 +25,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.grey,
           ),
+          onGenerateRoute: RouteGenerator.generateRoute,
           home: const HomeScreen(),
         ));
   }
