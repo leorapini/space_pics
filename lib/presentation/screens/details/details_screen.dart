@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:space_pics/presentation/constants/ui_standarts.dart';
-import 'package:space_pics/presentation/helpers/ui_helpers.dart';
-import 'package:space_pics/presentation/screens/details/widgets/image_widget.dart';
 
 import '../../../domain/entities/pic_of_day.dart';
+import '../../constants/ui_standard_values.dart';
+import '../../helpers/ui_helpers.dart';
+import 'widgets/image_widget.dart';
 
 class DetailsScreenParams {
   final PicOfDay picOfDay;
   final bool offline;
 
   DetailsScreenParams({
-    required PicOfDay this.picOfDay,
-    required bool this.offline,
+    required this.picOfDay,
+    required this.offline,
   });
 }
 
@@ -19,8 +19,15 @@ class DetailsScreen extends StatelessWidget {
   static const routeName = '/details';
 
   final DetailsScreenParams params;
-
   DetailsScreen({required this.params});
+
+  static const TextStyle titleStyle = TextStyle(
+      fontSize: 20, fontWeight: FontWeight.w700, color: Colors.black87);
+
+  static const TextStyle explanationStyle = TextStyle(
+    fontSize: 15,
+    color: Colors.black87,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -47,22 +54,16 @@ class DetailsScreen extends StatelessWidget {
                 Text(
                   params.picOfDay.title,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.black87),
+                  style: titleStyle,
                 ),
-                AddVerticalSpace(5),
+                const AddVerticalSpace(5),
                 Text(params.picOfDay.date),
-                AddVerticalSpace(20),
+                const AddVerticalSpace(20),
                 Text(
                   params.picOfDay.explanation,
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: Colors.black87,
-                  ),
+                  style: explanationStyle,
                 ),
-                AddVerticalSpace(50),
+                const AddVerticalSpace(50),
               ],
             ),
           )
