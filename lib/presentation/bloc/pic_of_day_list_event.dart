@@ -14,13 +14,6 @@ class OnInitialState extends PicOfDayListEvent {
   List<Object?> get props => [];
 }
 
-class OnInitialStateOffline extends PicOfDayListEvent {
-  const OnInitialStateOffline();
-
-  @override
-  List<Object?> get props => [];
-}
-
 class OnSearchSubmitted extends PicOfDayListEvent {
   final String value;
   const OnSearchSubmitted({
@@ -29,6 +22,13 @@ class OnSearchSubmitted extends PicOfDayListEvent {
 
   @override
   List<Object?> get props => [value];
+}
+
+class OnInitialStateOffline extends PicOfDayListEvent {
+  const OnInitialStateOffline();
+
+  @override
+  List<Object?> get props => [];
 }
 
 class OnSearchSubmittedOffline extends PicOfDayListEvent {
