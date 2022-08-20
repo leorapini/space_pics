@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:space_pics/domain/entities/pic_of_day.dart';
 
-import 'presentation/screens/details/details_screen.dart';
+import 'presentation/screens/detail/details_screen.dart';
 import 'presentation/screens/home/home_screen.dart';
 
 class RouteGenerator {
@@ -11,9 +10,9 @@ class RouteGenerator {
     switch (settings.name) {
       case HomeScreen.routeName:
         return MaterialPageRoute(builder: (_) => const HomeScreen());
-      case DetailsScreen.routeName:
-        if (args is DetailsScreenParams) {
-          return MaterialPageRoute(builder: (_) => DetailsScreen(params: args));
+      case DetailScreen.routeName:
+        if (args is DetailScreenParams) {
+          return MaterialPageRoute(builder: (_) => DetailScreen(params: args));
         } else {
           return _errorRoute('DetailsScreen');
         }

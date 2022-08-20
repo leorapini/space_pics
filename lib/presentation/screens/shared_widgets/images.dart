@@ -1,7 +1,30 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../data/constants/urls_and_paths.dart';
+import '../../../data/constants/urls_and_paths.dart';
+
+class ImgThumbnail extends StatelessWidget {
+  const ImgThumbnail({
+    Key? key,
+    required this.imgUrl,
+    required this.date,
+    required this.offline,
+  }) : super(key: key);
+
+  final String imgUrl;
+  final String date;
+  final bool offline;
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(5),
+      child: offline == true
+          ? LocalImage(date: date)
+          : InternetImage(imgUrl: imgUrl),
+    );
+  }
+}
 
 class ImgLarge extends StatelessWidget {
   const ImgLarge({

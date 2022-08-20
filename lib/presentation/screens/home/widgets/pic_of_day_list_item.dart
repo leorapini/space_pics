@@ -1,10 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../data/constants/urls_and_paths.dart';
 import '../../../../domain/entities/pic_of_day.dart';
 import '../../../helpers/ui_helpers.dart';
-import '../../details/details_screen.dart';
+import '../../detail/details_screen.dart';
+import '../../shared_widgets/images.dart';
 
 class PicOfDayListItem extends StatelessWidget {
   const PicOfDayListItem({
@@ -20,9 +19,11 @@ class PicOfDayListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushNamed(DetailsScreen.routeName,
-            arguments:
-                DetailsScreenParams(picOfDay: picOfDay, offline: offline));
+        Navigator.of(context).pushNamed(DetailScreen.routeName,
+            arguments: DetailScreenParams(
+              picOfDay: picOfDay,
+              offline: offline,
+            ));
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -32,10 +33,16 @@ class PicOfDayListItem extends StatelessWidget {
             width: 150,
             height: 100,
             child: ImgThumbnail(
-                imgUrl: picOfDay.imgUrl, date: picOfDay.date, offline: offline),
+              imgUrl: picOfDay.imgUrl,
+              date: picOfDay.date,
+              offline: offline,
+            ),
           ),
           const AddHorizontalSpace(10),
-          ThumbnailDescription(title: picOfDay.title, date: picOfDay.date)
+          ThumbnailDescription(
+            title: picOfDay.title,
+            date: picOfDay.date,
+          )
         ],
       ),
     );
@@ -52,6 +59,12 @@ class ThumbnailDescription extends StatelessWidget {
   final String title;
   final String date;
 
+  static const TextStyle titleStyle = TextStyle(
+    fontSize: 16.5,
+    fontWeight: FontWeight.w500,
+    color: Colors.black87,
+  );
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -61,11 +74,7 @@ class ThumbnailDescription extends StatelessWidget {
         children: [
           Text(
             title,
-            style: const TextStyle(
-              fontSize: 16.5,
-              fontWeight: FontWeight.w500,
-              color: Colors.black87,
-            ),
+            style: titleStyle,
           ),
           const AddVerticalSpace(5),
           Text(
@@ -73,61 +82,6 @@ class ThumbnailDescription extends StatelessWidget {
           )
         ],
       ),
-    );
-  }
-}
-
-class ImgThumbnail extends StatelessWidget {
-  const ImgThumbnail({
-    Key? key,
-    required this.imgUrl,
-    required this.date,
-    required this.offline,
-  }) : super(key: key);
-
-  final String imgUrl;
-  final String date;
-  final bool offline;
-
-  @override
-  Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(5),
-      child: offline == false
-          ? CachedNetworkImage(
-              imageUrl: imgUrl,
-              progressIndicatorBuilder: (context, url, downloadProgress) =>
-                  Container(
-                margin:
-                    const EdgeInsets.symmetric(vertical: 30, horizontal: 55),
-                child:
-                    CircularProgressIndicator(value: downloadProgress.progress),
-              ),
-              errorWidget: (context, url, error) => Container(
-                color: Colors.grey,
-                child: const Icon(
-                  Icons.no_photography,
-                  size: 40,
-                  color: Colors.white,
-                ),
-              ),
-              fit: BoxFit.cover,
-            )
-          : FittedBox(
-              fit: BoxFit.cover,
-              child: Image.asset(
-                OfflineImages.getOfflineImgPath(date),
-                errorBuilder: ((context, error, stackTrace) {
-                  return Container(
-                    color: Colors.grey,
-                    child: const Icon(
-                      Icons.no_photography,
-                      color: Colors.white,
-                    ),
-                  );
-                }),
-              ),
-            ),
     );
   }
 }

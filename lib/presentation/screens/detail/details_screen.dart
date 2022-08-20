@@ -3,23 +3,23 @@ import 'package:flutter/material.dart';
 import '../../../domain/entities/pic_of_day.dart';
 import '../../constants/ui_standard_values.dart';
 import '../../helpers/ui_helpers.dart';
-import 'widgets/image_widget.dart';
+import '../shared_widgets/images.dart';
 
-class DetailsScreenParams {
+class DetailScreenParams {
   final PicOfDay picOfDay;
   final bool offline;
 
-  DetailsScreenParams({
+  DetailScreenParams({
     required this.picOfDay,
     required this.offline,
   });
 }
 
-class DetailsScreen extends StatelessWidget {
+class DetailScreen extends StatelessWidget {
   static const routeName = '/details';
 
-  final DetailsScreenParams params;
-  DetailsScreen({required this.params});
+  final DetailScreenParams params;
+  DetailScreen({required this.params});
 
   static const TextStyle titleStyle = TextStyle(
       fontSize: 20, fontWeight: FontWeight.w700, color: Colors.black87);
