@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../domain/entities/pic_of_day.dart';
-import '../../../helpers/ui_helpers.dart';
+import '../../../helpers/vertical_horizontal_spaces.dart';
 import '../../detail/details_screen.dart';
 import '../../shared_widgets/images.dart';
 

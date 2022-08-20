@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../bloc/pic_of_day_list_bloc.dart';
 import '../../bloc/pic_of_day_list_event.dart';
 import '../../bloc/pic_of_day_list_state.dart';
-import '../../helpers/ui_helpers.dart';
+import '../../helpers/vertical_horizontal_spaces.dart';
 import 'widgets/pic_of_day_list.dart';
 
 class HomeScreen extends StatelessWidget {
