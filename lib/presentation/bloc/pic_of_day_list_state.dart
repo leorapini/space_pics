@@ -28,7 +28,7 @@ class PicOfDayListHasData extends PicOfDayListState {
   const PicOfDayListHasData({required this.picOfDayList});
 
   @override
-  List<Object?> get props => picOfDayList;
+  List<Object?> get props => [picOfDayList];
 }
 
 class PicOfDayListHasDataOffline extends PicOfDayListState {
@@ -36,5 +36,5 @@ class PicOfDayListHasDataOffline extends PicOfDayListState {
   const PicOfDayListHasDataOffline({required this.picOfDayList});
 
   @override
-  List<Object?> get props => picOfDayList;
+  List<Object?> get props => [picOfDayList];
 }

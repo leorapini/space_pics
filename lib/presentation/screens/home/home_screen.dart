@@ -8,7 +8,7 @@ import '../../bloc/pic_of_day_list_bloc.dart';
 import '../../bloc/pic_of_day_list_event.dart';
 import '../../bloc/pic_of_day_list_state.dart';
 import '../../helpers/ui_helpers.dart';
-import 'widgets/pic_of_day_list_item.dart';
+import 'widgets/pic_of_day_list.dart';
 
 class HomeScreen extends StatelessWidget {
   static const routeName = '/';
@@ -16,9 +16,23 @@ class HomeScreen extends StatelessWidget {
 
   final double paddingValue = 20;
 
+  static const TextStyle logoStyle = TextStyle(
+    fontSize: 45,
+    fontWeight: FontWeight.w800,
+    color: Colors.grey,
+    letterSpacing: -2.5,
+  );
+
+  static const TextStyle offlineStyle = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w700,
+    color: Colors.orange,
+    letterSpacing: 0,
+  );
+
   @override
   Widget build(BuildContext context) {
-    isConnected(context);
+    connectionCheck(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -36,38 +50,41 @@ class HomeScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const AddVerticalSpace(60),
+            const AddVerticalSpace(50),
             Column(
               children: [
                 const Text(
                   'SpacePics',
-                  style: TextStyle(
-                    fontSize: 40,
-                    fontWeight: FontWeight.w800,
-                    color: Colors.grey,
-                    letterSpacing: -2.5,
-                  ),
+                  style: logoStyle,
                 ),
                 BlocBuilder<PicOfDayListBloc, PicOfDayListState>(
                   builder: (context, state) {
                     if (state is PicOfDayListHasDataOffline) {
                       return const Text(
                         'Offline Mode',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.orange,
-                          letterSpacing: 0,
-                        ),
+                        style: offlineStyle,
                       );
                     } else {
                       return const SizedBox();
                     }
                   },
                 ),
+                const AddVerticalSpace(10),
+                ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.white),
+                  ),
+                  onPressed: () {
+                    connectionCheck(context);
+                  },
+                  child: const Text(
+                    'See & Refresh List',
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                ),
               ],
             ),
-            const AddVerticalSpace(30),
+            const AddVerticalSpace(15),
             BlocBuilder<PicOfDayListBloc, PicOfDayListState>(
                 builder: (context, state) {
               return TextField(
@@ -90,24 +107,6 @@ class HomeScreen extends StatelessWidget {
                 },
               );
             }),
-            const AddVerticalSpace(10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.black12),
-                  ),
-                  onPressed: () {
-                    isConnected(context);
-                  },
-                  child: const Text(
-                    'See List',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-              ],
-            ),
             const AddVerticalSpace(30),
             BlocBuilder<PicOfDayListBloc, PicOfDayListState>(
                 builder: (context, state) {
@@ -116,44 +115,16 @@ class HomeScreen extends StatelessWidget {
                   child: CircularProgressIndicator(),
                 );
               } else if (state is PicOfDayListHasData) {
-                return Expanded(
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.vertical,
-                    padding: EdgeInsets.zero,
-                    itemCount: state.picOfDayList.length,
-                    itemBuilder: ((context, i) {
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0),
-                        child: PicOfDayListItem(
-                          picOfDay: state.picOfDayList[i],
-                          offline: false,
-                        ),
-                      );
-                    }),
-                  ),
+                return PicOfDayList(
+                  picOfDayList: state.picOfDayList,
                 );
               } else if (state is PicOfDayListHasDataOffline) {
-                return Expanded(
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.vertical,
-                    padding: EdgeInsets.zero,
-                    itemCount: state.picOfDayList.length,
-                    itemBuilder: ((context, i) {
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0),
-                        child: PicOfDayListItem(
-                          picOfDay: state.picOfDayList[i],
-                          offline: true,
-                        ),
-                      );
-                    }),
-                  ),
+                return PicOfDayList(
+                  picOfDayList: state.picOfDayList,
                 );
               } else if (state is PicOfDayListError) {
-                return const Center(
-                  child: Text('Whoops. There has been an error'),
+                return Center(
+                  child: Text(state.errorMessage),
                 );
               } else {
                 return const SizedBox();
@@ -166,16 +137,16 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Future<void> isConnected(BuildContext context) async {
+  Future<void> connectionCheck(BuildContext context) async {
     try {
       final result = await InternetAddress.lookup('google.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        context.read<PicOfDayListBloc>().add(OnInitialState());
+        context.read<PicOfDayListBloc>().add(const OnInitialState());
       } else {
-        context.read<PicOfDayListBloc>().add(OnInitialStateOffline());
+        context.read<PicOfDayListBloc>().add(const OnInitialStateOffline());
       }
     } on SocketException catch (_) {
-      context.read<PicOfDayListBloc>().add(OnInitialStateOffline());
+      context.read<PicOfDayListBloc>().add(const OnInitialStateOffline());
     }
   }
 }

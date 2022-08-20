@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 
 import '../constants/urls_and_paths.dart';
 import '../models/pic_of_day_model.dart';
+import 'helpers/is_word_in_string.dart';
 
 abstract class LocalJsonDataSource {
   Future<List<PicOfDayModel>> getLocalData({String? keyword});
@@ -34,11 +35,4 @@ class LocalJsonDataSourceImpl implements LocalJsonDataSource {
 
     return result;
   }
-}
-
-bool isWordInString(String word, String str) {
-  final String lowerCaseWord = word.toLowerCase();
-  final String lowerCaseString = str.toLowerCase();
-  final bool result = lowerCaseString.contains(lowerCaseWord);
-  return result;
 }

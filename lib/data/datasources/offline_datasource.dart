@@ -1,24 +1,23 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 import '../constants/urls_and_paths.dart';
 import '../models/pic_of_day_model.dart';
+import 'helpers/is_word_in_string.dart';
 
 abstract class OfflineDataSource {
   Future<List<PicOfDayModel>> getOfflineData({String? keyword});
 }
-// Local data source (json + pictures) shipped with the app in order to offer 
+
+// Local data source (json + pictures) shipped with the app in order to offer
 // a good offline experience for the user.
 class OfflineDataSourceImpl implements OfflineDataSource {
   @override
   Future<List<PicOfDayModel>> getOfflineData({String? keyword}) async {
     List<PicOfDayModel> result = [];
-    debugPrint('before response in Impl');
     final String response =
         await rootBundle.loadString(OfflineDataSourcePath.jsonPath);
-    debugPrint('after response in Impl');
     final Iterable jsonDecoded = jsonDecode(response);
     final List<PicOfDayModel> listOfPictures = List<PicOfDayModel>.from(
         jsonDecoded.map((model) => PicOfDayModel.fromJson(model)));
@@ -33,11 +32,4 @@ class OfflineDataSourceImpl implements OfflineDataSource {
     }
     return result;
   }
-}
-
-bool isWordInString(String word, String str) {
-  final String lowerCaseWord = word.toLowerCase();
-  final String lowerCaseString = str.toLowerCase();
-  final bool result = lowerCaseString.contains(lowerCaseWord);
-  return result;
 }

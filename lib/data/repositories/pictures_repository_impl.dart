@@ -34,7 +34,6 @@ class PicturesRepositoryImpl implements PicturesRepository {
           result = await offlineDataSource.getOfflineData();
         }
       } catch (e) {
-        debugPrint('error: $e');
         throw LocalError();
       }
       // Get PifOfDay from NASA if searched by date or from local json if searched by keyword.
