@@ -41,6 +41,7 @@ const List<PicOfDayModel> samplePicOfDayModelList = [
 
 const sampleStartDate = '2022-08-16';
 const sampleEndDate = '2022-08-16';
+const sampleKeyword = 'meteors';
 
 const samplePicOfDayModel = PicOfDayModel(
   imgUrl: "https://apod.nasa.gov/apod/image/2208/MeteorWind_Larnaout_960.jpg",

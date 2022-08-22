@@ -87,7 +87,7 @@ class PicOfDayListBloc extends Bloc<PicOfDayListEvent, PicOfDayListState> {
         try {
           final result = await _getPictures.execute(
               startDate: value, endDate: value, offline: true);
-          emit(PicOfDayListHasData(picOfDayList: result));
+          emit(PicOfDayListHasDataOffline(picOfDayList: result));
         } catch (e) {
           emit(const PicOfDayListError());
           throw LocalError();
