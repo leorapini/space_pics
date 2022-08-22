@@ -116,10 +116,12 @@ class HomeScreen extends StatelessWidget {
                 );
               } else if (state is PicOfDayListHasData) {
                 return PicOfDayList(
+                  key: const Key('picOfDay_online_data'),
                   picOfDayList: state.picOfDayList,
                 );
               } else if (state is PicOfDayListHasDataOffline) {
                 return PicOfDayList(
+                  key: const Key('picOfDay_offline_data'),
                   picOfDayList: state.picOfDayList,
                 );
               } else if (state is PicOfDayListError) {
