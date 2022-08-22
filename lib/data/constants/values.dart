@@ -1,2 +1,2 @@
-// Number of days/items to show on the original/initial list form NASA
+// Number of days/items to show on the original/initial list from NASA
 const int numberOfDays = 30;
