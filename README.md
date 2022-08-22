@@ -60,6 +60,11 @@ To run all tests, inside of the repository directory, type the following command
 flutter test
 '''
 
+## Future Improvements
+
+- Increase testing coverage
+- Improve UI and UX
+
 
 
 
