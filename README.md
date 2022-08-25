@@ -22,7 +22,7 @@ There are two search options available. One by date (YYYY-MM-DD) or by keyword. 
 
 ![Search by Date](/documents/screenshots/search_by_date.png) | ![Detail Screen](/documents/screenshots/img_detail.png)
 
-To search by title since type a keywork and press 'go' on your keyboard.
+To search by title type a keywork and press 'go' on your keyboard.
 
 ![Search by Keyword](/documents/screenshots/search_by_keyword.png)
 
