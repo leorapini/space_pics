@@ -48,17 +48,17 @@ For dependencies please check the pubspeck.yaml file.
 
 This app has been developed with a focus on iOS. This means it has not been tested on Android devices. With that in mind, you should run it on mac computer with a Simulator installed. To run the app locally you must first clone the repository, and with the Simulator open and loaded, inside the repository directory run the following command in your terminal:
 
-'''bash
+```
 flutter run
-'''
+```
 
 ## Testing
 
 To run all tests, inside of the repository directory, type the following command in your terminal:
 
-'''bash
+```
 flutter test
-'''
+```
 
 ## Future Improvements
 
